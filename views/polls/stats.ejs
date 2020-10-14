@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Start A Poll</title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stats for <%= poll.title%></title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -17,7 +18,15 @@
   </head>
   <body>
     <div class="container">
-     <a href="/poll">go to live polls</a>
-     <a href="/poll/create">create your own</a>
+        <h5>Q : <%= poll.question %></h5>
+        <h5>Votes So Far</h5>
+        <% poll.votes.forEach(function(pv){ %>
+            <div class="alert alert-info">
+                <strong><%= Object.keys(pv)[0] %></strong> - <%= Object.values(pv)[0] %> Vote(s)
+            </div>
+              
+        <% }); %>
+    </div>
+    
   </body>
 </html>
