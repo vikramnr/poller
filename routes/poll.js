@@ -5,6 +5,7 @@ const router = express.Router()
 const axios = require('axios')
 const Poll = require('../models/poll')
 const { route } = require('.')
+const poll = require('../models/poll')
 // const { generateTokenForTwitch } = require('./middleware')
 
 router.get('/create', async (req, res, _next) => {
@@ -41,13 +42,12 @@ router.post('/:id', async (req, res, next) => {
   // create copy of votes array
   let votes = poll.votes || []
   // find the answer which has to updated
-  let index = votes.findIndex(p => p[question])
-  if(index!==-1) {
+  let index = votes.findIndex((p) => p[question])
+  if (index !== -1) {
     // update the answer and save to poll
-    votes[index][question] +=1
+    votes[index][question] += 1
     poll.votes = votes
-    await Poll.findByIdAndUpdate({_id: req.params.id},poll)
-    
+    await Poll.findByIdAndUpdate({ _id: req.params.id }, poll)
   } else {
     // create a new object with initial value
     // and save it
@@ -60,9 +60,16 @@ router.post('/:id', async (req, res, next) => {
   res.redirect('/')
 })
 
-router.get('/:id',async(req,res,next) => {
+router.get('/:id', async (req, res, next) => {
   let poll = await Poll.findById(req.params.id)
-  res.render('polls/stats', { poll })  
+  res.render('polls/stats', { poll })
+})
+
+router.put('/:id', async (req, res, next) => {
+  let poll = await Poll.findById(req.params.id)
+  poll.answers = poll.answers.concat(req.body.answer)
+  poll.save()
+  res.redirect(`/poll/${req.params.id}`)
 })
 
 module.exports = router

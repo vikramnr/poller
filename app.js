@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 const createError = require('http-errors')
 const express = require('express')
+const methodOverride = require('method-override')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
@@ -16,6 +17,7 @@ mongoose.connect(process.env.MONGODB_URL, {useNewUrlParser:true,useUnifiedTopolo
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
+app.use(methodOverride('_method'))
 app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))

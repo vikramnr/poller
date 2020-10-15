@@ -18,6 +18,8 @@
   </head>
   <body>
     <div class="container">
+      <a href="/poll">go to live polls</a>
+     <a href="/poll/create">create your own</a>
       <h3>View Polls</h3>
       <% polls.forEach(function(poll){ %>
       <form class="bg-white text-dark" action="/poll/<%=poll.id%>" method="POST">
