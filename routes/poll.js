@@ -66,8 +66,12 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.put('/:id', async (req, res, next) => {
+  let {answer} =req.body
   let poll = await Poll.findById(req.params.id)
-  poll.answers = poll.answers.concat(req.body.answer)
+  let existingAnswer = poll.answers.map(a => a.toLowerCase())
+  let updatedAnswer = answer.filter(a => existingAnswer.index(a.toLowerCase())!==-1)
+  
+  poll.answers = poll.answers.concat(updatedAnswer)
   poll.save()
   res.redirect(`/poll/${req.params.id}`)
 })
