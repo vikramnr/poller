@@ -16,7 +16,7 @@ router.get('/create', async (req, res, _next) => {
 router.get('/', async (req, res, next) => {
   // main route for poll
   // show polls by latest created data
-  let polls = await Poll.find({}).sort({ _id: -1 })
+  let polls = await (await Poll.find({}).sort({ _id: -1 })).filter(p => p.isActive === true)
   res.render('polls/show', { polls })
 })
 

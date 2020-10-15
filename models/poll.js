@@ -4,7 +4,11 @@ const pollSchema = new mongoose.Schema({
     title: String,
     question: String,
     answers : [String],
-    votes: [Object]
+    votes: [Object],
+    isActive: {
+        type: Boolean,
+        default: true
+    }
 })
 
 module.exports = mongoose.model('Poll', pollSchema)

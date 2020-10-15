@@ -3,7 +3,7 @@
       <h3>Create polls</h3>
       <form action="/poll"  method="POST">
         <div class="form-group">
-          <label for="title">Title of the Poll</label>
+          <label for="title">Title of the Poll*</label>
           <input
             type="text"
             class="form-control"
@@ -13,7 +13,7 @@
           />
         </div>
         <div class="form-group">
-          <label for="Question">Question</label>
+          <label for="Question">Question*</label>
           <input
             type="text"
             class="form-control"
@@ -22,8 +22,10 @@
             required
           />
         </div>
+        
         <div class="form-group" id="answers">
-          <label for="Question">Option 1</label>
+          
+          <label for="Question">Option 1*</label>
           <input
             type="answer"
             class="form-control"
@@ -31,11 +33,13 @@
             name="answer"
             required
           />
-          <label for="answer">Option 2</label>
+          <label for="answer">Option 2*</label>
           <input type="text" class="form-control" id="answer2" name="answer" required/>
-          <label for="answer">Option 3</label>
+          <label for="answer">Option 3*</label>
           <input type="text" class="form-control" id="answer3" name="answer" required/>
         </div>
+
+        <div><small class="text-danger">Any duplicates options will be removed from the poll</small></div>
         <button
           type="button"
           onclick="addelement()"
@@ -57,7 +61,7 @@
         input.required = true
         input.classList.add('form-control')
         let label = document.createElement('label')
-        label.innerText = `Option ${len+1}`
+        label.innerText = `Option ${len+1}*`
         formElement.appendChild(label);
         formElement.appendChild(input);
       }

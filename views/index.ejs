@@ -1,4 +1,30 @@
 <%- include('partials/header') %>
+<div class="row justify-content-md-center">
+    <div class="col-lg-3">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Active Polls</h5>
+              <h1 class="card-text"><%= activePolls %></h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Polls Created So Far</h5>
+              <h1 class="card-text"> <%= polls%> </h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Votes Casted So Far</h5>
+              <h1 class="card-text"><%= votes%></h1>
+            </div>
+        </div>        
+    </div>
+</div>
 <%- include('partials/footer') %>
 
 
