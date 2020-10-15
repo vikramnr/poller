@@ -67,6 +67,9 @@ router.get('/:id', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   let {answer} =req.body
+  if(!answer) {
+    res.redirect('/')
+  }
   let poll = await Poll.findById(req.params.id)
   let existingAnswer = poll.answers.map(a => a.toLowerCase())
   let updatedAnswer = answer.filter(a => existingAnswer.index(a.toLowerCase())!==-1)

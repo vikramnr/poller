@@ -1,25 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Start A Poll</title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-      crossorigin="anonymous"
-    ></script>
-  </head>
-  <body>
+<%- include('../partials/header') %>
     <div class="container">
       <h3>Create polls</h3>
-      <a href="/poll">go to live polls</a>
-     <a href="/poll/create">create your own</a>
       <form action="/poll"  method="POST">
         <div class="form-group">
           <label for="title">Title of the Poll</label>
@@ -65,21 +46,21 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
-  </body>
-  <script>
-    function addelement() {
-      let formElement = document.getElementById("answers")
-      console.log()
-      let len = formElement.children.length/2
-      let input = document.createElement("input");
-      input.type = "text";
-      input.name = "answer" + (len+1).toString();
-      input.required = true
-      input.classList.add('form-control')
-      let label = document.createElement('label')
-      label.innerText = `Option ${len+1}`
-      formElement.appendChild(label);
-      formElement.appendChild(input);
-    }
-  </script>
-</html>
+    <script>
+      function addelement() {
+        let formElement = document.getElementById("answers")
+        console.log()
+        let len = formElement.children.length/2
+        let input = document.createElement("input");
+        input.type = "text";
+        input.name = "answer" + (len+1).toString();
+        input.required = true
+        input.classList.add('form-control')
+        let label = document.createElement('label')
+        label.innerText = `Option ${len+1}`
+        formElement.appendChild(label);
+        formElement.appendChild(input);
+      }
+    </script>  
+  <%- include('../partials/footer') %>
+

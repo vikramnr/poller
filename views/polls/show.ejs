@@ -1,30 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Active Polls | Vote NOW!! </title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-      crossorigin="anonymous"
-    ></script>
-  </head>
-  <body>
+<%- include('../partials/header') %>
     <div class="container">
-      <a href="/poll">go to live polls</a>
-     <a href="/poll/create">create your own</a>
       <h3>View Polls</h3>
+      <hr>
       <% polls.forEach(function(poll){ %>
       <form class="bg-white text-dark" action="/poll/<%=poll.id%>" method="POST">
         <div class="form-group">
-          <h5>Question</h5>
           <input
             type="text"
             class="form-control"
@@ -54,8 +34,10 @@
       </form>
       <hr>
       <% }); %>
-      <strong><a href="/poll/create">Want to create your own poll</a></strong>
+      <strong><a href="/poll/create">Want to create your own poll? click here</a></strong>
     </div>
     
-  </body>
-</html>
+    <%- include('../partials/footer') %>
+    
+    
+    
