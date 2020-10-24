@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
-require('dotenv').config()
+// require('dotenv').config()
 const express = require('express')
 const router = express.Router()
 const axios = require('axios')
 const Poll = require('../models/poll')
 const { route } = require('.')
 const poll = require('../models/poll')
-// const { generateTokenForTwitch } = require('./middleware')
 
 router.get('/create', async (req, res, _next) => {
   // render create page
