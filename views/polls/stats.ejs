@@ -1,69 +1,102 @@
 <%- include('../partials/header') %>
 <div class="container">
-      <h5>Avalible options so far</h5>
-      <h5>Q : <%= poll.question %></h5>
-        <h5>Votes So Far</h5>
-        <% poll.votes.forEach(function(pv){ %>
-        <div class="alert alert-info">
-          <strong><%= Object.keys(pv)[0] %></strong> - <%= Object.values(pv)[0]
-          %> Vote(s)
-        </div>
-        <% }); %> 
-      <form action="/poll/<%= poll.id %>?_method=PUT" method="POST">
-      <div class="form-group" id="answers">
-        <% poll.answers.forEach(function(answer,i){ %>
-          <label for="answer">Option <%=i+1%></label>
-          <input
-            type="text"
-            class="form-control"
-            id="<%= answer%>"
-            name="answer"
-            value="<%=answer%>"
-            disabled
-          />
-        <% }); %>
-      </div>
-      <button type="submit" class="btn btn-primary">Save poll</button>
-      <button
+  <h5>Avalible options so far</h5>
+  <h5>Q : <%= poll.question %></h5>
+  <h5>Votes So Far</h5>
+  <% poll.votes.forEach(function(pv){ %>
+  <div class="alert alert-info">
+    <strong><%= Object.keys(pv)[0] %></strong> - <%= Object.values(pv)[0] %>
+    Vote(s)
+  </div>
+  <% }); %>
+  <form action="/poll/<%= poll.id %>?_method=PUT" method="POST">
+    <div class="form-group" id="answers">
+      <% poll.answers.forEach(function(answer,i){ %>
+      <label for="answer">Option <%=i+1%></label>
+      <input
+        type="text"
+        class="form-control"
+        id="<%= answer%>"
+        name="answer"
+        value="<%=answer%>"
+        disabled
+      />
+      <% }); %>
+    </div>
+    <button type="submit" class="btn btn-primary">Save poll</button>
+    <button
       type="button"
       onclick="addelement()"
-      class="btn btn-secondary btn-sm">
-      add more options
-      </button>
-      <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#staticBackdrop">make poll inactive</a>
-      <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" 
-      aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">This action is irreversible,Please confirm</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Yes, I'm sure</button>
-            </div>
-          </div>
+      class="btn btn-secondary btn-md"
+    >
+      Add more options
+    </button>
+    <button
+      type="button"
+      class="btn btn-md btn-danger"
+      data-toggle="modal"
+      data-target="#exampleModal"
+      data-whatever="@mdo"
+    >
+      Make poll In-Active
+    </button>
+  </form>
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <form
+        id="delete_form"
+        action="/poll/<%= poll.id %>/inactive?_method=PUT"
+        method="POST"
+      >
+      </form>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">
+            This action is irreversible,Please confirm
+          </h5>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+          <button
+            onclick="form_submit()"
+            type="button"
+            class="btn btn-primary"
+            form="modal-details"
+            type="submit"
+          >
+            Yes, I'm sure
+          </button>
         </div>
       </div>
-      </form>
     </div>
-    <%- include('../partials/footer') %> 
-    <script>
-    function addelement() {
-      let formElement = document.getElementById("answers");
-      console.log();
-      let len = formElement.children.length / 2;
-      let input = document.createElement("input");
-      input.type = "text";
-      input.name = "answer";
-      input.required = true;
-      input.classList.add("form-control");
-      let label = document.createElement("label");
-      label.innerText = `Option ${len + 1}`;
-      formElement.appendChild(label);
-      formElement.appendChild(input);
-    }
-  </script>
+  </div>
+</div>
+<%- include('../partials/footer') %>
+<script>
+  function form_submit() {
+    console.log("clciked");
+    let d = document.getElementById("delete_form");
+    console.log(d);
+    d.submit();
+  }
+  function addelement() {
+    let formElement = document.getElementById("answers");
+    console.log();
+    let len = formElement.children.length / 2;
+    let input = document.createElement("input");
+    input.type = "text";
+    input.name = "answer";
+    input.required = true;
+    input.classList.add("form-control");
+    let label = document.createElement("label");
+    label.innerText = `Option ${len + 1}`;
+    formElement.appendChild(label);
+    formElement.appendChild(input);
+  }
+</script>

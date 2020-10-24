@@ -21,6 +21,12 @@ router.get('/', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, _next) => {
+  
+  let poll = await Poll.find({question: req.body.question})
+  console.log(poll)
+  if(poll){
+    return res.redirect('/poll')
+  }
   // get the required params and save it
   let { title, question, answer } = req.body
   let newPoll = new Poll({
@@ -79,4 +85,12 @@ router.put('/:id', async (req, res, next) => {
   res.redirect(`/poll/${req.params.id}`)
 })
 
+router.put('/:id/inactive',async (req,res,next) => {
+  
+  let poll = await Poll.findByIdAndUpdate(req.params.id,{isActive: false})
+  res.redirect('/')
+
+})
+
 module.exports = router
+
