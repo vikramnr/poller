@@ -8,6 +8,10 @@ const pollSchema = new mongoose.Schema({
     isActive: {
         type: Boolean,
         default: true
+    },
+    postedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 })
 

@@ -28,7 +28,10 @@
   <body>
     <div class="container mt-0 pt-0" id="topheader">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">Poller</a>
+        <a class="navbar-brand" href="/">
+          <img src="/images/parking-99212_960_720.png" width="30" height="30" alt="" loading="lazy">
+          Poller
+        </a>
         <button
           class="navbar-toggler"
           type="button"
@@ -45,10 +48,23 @@
             <a class="nav-link" href="/">Home</a>
             <a class="nav-link" href="/poll">View Active Polls</a>
             <a class="nav-link" href="/poll/create">Create One</a>
+            <% if(!currentUser){ %>
+            <a class="nav-link" href="/user">Login/Sign Up</a>  
+              <% } else { %>
+                  <a class="nav-link" href="/user/logout">Logout</a>
+                  <a class="nav-link disabled text-primary">Signed in as
+                    <%= currentUser.username %>
+                  </a>
+              <% } %>
+            
           </div>
         </div>
       </nav>
+      <% if(success && success.length>0){ %>
+      <div class="alert alert-info" role="alert">
+        <%=success%>
+      </div>
+      <% }%>
+      
       <hr />
     </div>
-  </body>
-</html>

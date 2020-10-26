@@ -1,0 +1,63 @@
+<%- include('../partials/header') %>
+<div class="container mt-1 pt-1">
+  <div class="row">
+    <div class="col-md">
+      <form action="/user/login" method="POST">
+        <div class="form-group">
+          <label for="title">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="username"
+            placeholder="abc@gyx.com"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="Question">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            required
+            placeholder="********"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+    </div>
+    <div class="col-md">
+      <form action="/user" method="POST">
+        <div class="form-group">
+          <label for="title">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            placeholder="abc@gyx.com"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="Question">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            required
+            minlength="10"
+            placeholder="********"
+          />
+          <small>Should be min.length of 10</small>
+        </div>
+        <button type="submit" class="btn btn-success">Signup</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

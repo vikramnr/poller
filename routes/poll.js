@@ -33,6 +33,7 @@ router.post('/', async (req, res, _next) => {
     question: question,
     answers: answer,
   })
+  req.flash('success', 'Your poll is active now !!!')
   await newPoll.save()
   res.redirect('/')
 })
@@ -62,6 +63,7 @@ router.post('/:id', async (req, res, next) => {
     poll.votes = votes
     await poll.save()
   }
+  req.flash('success', 'Your vote has been recorded')
   res.redirect('/')
 })
 
@@ -72,7 +74,9 @@ router.get('/:id', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   let {answer} =req.body
+  
   if(!answer) {
+    req.flash('success', 'No new options were added')
     res.redirect('/')
   }
   let poll = await Poll.findById(req.params.id)
@@ -87,6 +91,7 @@ router.put('/:id', async (req, res, next) => {
 router.put('/:id/inactive',async (req,res,next) => {
   
   let poll = await Poll.findByIdAndUpdate(req.params.id,{isActive: false})
+  req.flash('success', 'Poll has been inactive')
   res.redirect('/')
 
 })
