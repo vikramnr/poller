@@ -19,8 +19,9 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, _next) => {
   
-  let poll = await Poll.find({question: req.body.question})
+  let poll = await Poll.findOne({title: req.body.title})
   if(poll){
+    req.flash('success', 'Already poll with similar question exists.')
     return res.redirect('/poll')
   }
   // get the required params and save it
