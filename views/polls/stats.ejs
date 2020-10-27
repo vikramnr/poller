@@ -2,14 +2,21 @@
 <div class="container">
   <h5>Q: <%= poll.question %></h5>
   <hr>
-  <h5>Votes So Far</h5>
-  <% poll.votes.forEach(function(pv){ %>
-  <div class="alert alert-info">
-    <strong><%= Object.keys(pv)[0] %></strong> - <%= Object.values(pv)[0] %>
-    Vote(s)
-  </div>
-  <hr>
-  <% }); %>
+  
+  <% if(poll.votes && poll.votes.length>0){ %>
+    <h5>Votes So Far</h5>
+    <% poll.votes.forEach(function(pv){ %>
+      <div class="alert alert-info">
+        <strong><%= Object.keys(pv)[0] %></strong> - <%= Object.values(pv)[0] %>
+        Vote(s)
+      </div>
+      <hr>
+      <% }); %>
+  <% } else { %>
+    <div class="text-success"><a href='/poll'>Be the first one to vote !!!</a></div>
+    <hr>
+  <%}%>
+  
   <form action="/poll/<%= poll.id %>?_method=PUT" method="POST">
     <h5>Avalible options so far</h5>
     <div class="form-group" id="answers">
@@ -33,6 +40,7 @@
     >
       Add more options
     </button>
+    <small class="text-danger">Any duplicate options will be removed. Plese refrain from adding such options.</small>
     <% if(!currentUser){ %>
       <button
       type="button"
