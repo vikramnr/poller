@@ -37,7 +37,7 @@ router.post('/', async (req, res, _next) => {
     })
   }
   else {
-    let anonymousUser = await User.findOne({username: 'anonymous@user.com' })
+    let anonymousUser = await User.findOne({username: process.env.ANONYMOUSUSER })
     newPoll = new Poll({
       title: title,
       question: question,
