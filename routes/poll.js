@@ -2,10 +2,8 @@
 // require('dotenv').config()
 const express = require('express')
 const router = express.Router()
-const axios = require('axios')
 const Poll = require('../models/poll')
-const { route } = require('.')
-const poll = require('../models/poll')
+const User = require('../models/user')
 
 router.get('/create', async (req, res, _next) => {
   // render create page
@@ -22,17 +20,32 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, _next) => {
   
   let poll = await Poll.find({question: req.body.question})
-  console.log(poll)
   if(poll){
     return res.redirect('/poll')
   }
   // get the required params and save it
+  let newPoll 
   let { title, question, answer } = req.body
-  let newPoll = new Poll({
-    title: title,
-    question: question,
-    answers: answer,
-  })
+  
+  if(res.locals.currentUser) {
+    newPoll = new Poll({
+      title: title,
+      question: question,
+      answers: answer,
+      postedBy: res.locals.currentUser._id
+    })
+  }
+  else {
+    let anonymousUser = await User.findOne({username: 'anonymous@user.com' })
+    newPoll = new Poll({
+      title: title,
+      question: question,
+      answers: answer,
+      postedBy: anonymousUser._id
+    })
+  }
+  
+  
   req.flash('success', 'Your poll is active now !!!')
   await newPoll.save()
   res.redirect('/')
@@ -89,11 +102,13 @@ router.put('/:id', async (req, res, next) => {
 })
 
 router.put('/:id/inactive',async (req,res,next) => {
-  
-  let poll = await Poll.findByIdAndUpdate(req.params.id,{isActive: false})
-  req.flash('success', 'Poll has been inactive')
-  res.redirect('/')
-
+  if(res.locals.currentUser) {
+    let poll = await Poll.findByIdAndUpdate(req.params.id,{isActive: false})
+    req.flash('success', 'Poll has been inactive')
+    res.redirect('/')
+  }  
+  req.flash('success', 'Please login and try again')
+  res.redirect('/user')
 })
 
 module.exports = router

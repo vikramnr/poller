@@ -1,15 +1,17 @@
 <%- include('../partials/header') %>
 <div class="container">
-  <h5>Avalible options so far</h5>
-  <h5>Q : <%= poll.question %></h5>
+  <h5>Q: <%= poll.question %></h5>
+  <hr>
   <h5>Votes So Far</h5>
   <% poll.votes.forEach(function(pv){ %>
   <div class="alert alert-info">
     <strong><%= Object.keys(pv)[0] %></strong> - <%= Object.values(pv)[0] %>
     Vote(s)
   </div>
+  <hr>
   <% }); %>
   <form action="/poll/<%= poll.id %>?_method=PUT" method="POST">
+    <h5>Avalible options so far</h5>
     <div class="form-group" id="answers">
       <% poll.answers.forEach(function(answer,i){ %>
       <label for="answer">Option <%=i+1%></label>
@@ -31,15 +33,27 @@
     >
       Add more options
     </button>
-    <button
+    <% if(!currentUser){ %>
+      <button
       type="button"
       class="btn btn-md btn-danger"
-      data-toggle="modal"
-      data-target="#exampleModal"
-      data-whatever="@mdo"
+      disabled
     >
       Make poll In-Active
     </button>
+        <% } else { %>
+          <button
+          type="button"
+          class="btn btn-md btn-danger"
+          data-toggle="modal"
+          data-target="#exampleModal"
+          data-whatever="@mdo"
+        >
+          Make poll In-Active
+        </button>
+    <% } %>
+
+    
   </form>
   <div
     class="modal fade"
